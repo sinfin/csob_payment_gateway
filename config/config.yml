@@ -1,0 +1,35 @@
+base:
+  test:
+    gateway_url: "https://iapi.iplatebnibrana.csob.cz/api/v1.5"
+    public_key: "mips_iplatebnibrana.csob.cz.pub"
+    merchant_id: "A1561i9yjm"
+    currency: "USD"
+    return_method_post: true
+    close_payment: false
+  production:
+    gateway_url: "https://iapi.iplatebnibrana.csob.cz/api/v1.5"
+    public_key: "mips_iplatebnibrana.csob.cz.pub"
+    merchant_id: "A1561i9yjm"
+    currency: "USD"
+    return_method_post: true
+    close_payment: false
+urls:
+  init: "/payment/init/"
+  process: "/payment/process/"
+  status: "/payment/status/"
+  close: "/payment/close/"
+  reverse: "/payment/reverse/"
+  refund: "/payment/refund/"
+  echo: "/echo/"
+  customer_info: "/customer/info/"
+statuses:
+  requested: 1
+  pending: 2
+  canceled: 3
+  approved: 4
+  reversed: 5
+  declined: 6
+  to_clearing: 7
+  cleared: 8
+  refund_requested: 9
+  refunded: 10
