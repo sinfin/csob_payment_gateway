@@ -99,7 +99,7 @@ module CsobPaymentGateway
                 "dttm": timestamp,
                 "payOperation": "payment",
                 "payMethod": "card",
-                "totalAmount": total_price * 100,
+                "totalAmount": total_price,
                 "currency": currency ? currency : default_currency,
                 "closePayment": close_payment,
                 "returnUrl": return_url,
