@@ -27,7 +27,7 @@ module CsobPaymentGateway
     def payment_init
       api_init_url = CsobPaymentGateway.configuration.urls["init"]
 
-      response = RestClient.post gateway_url + api_init_url, payment_data.to_json, content_type: :json, accept: :json
+      response = RestClient.post gateway_url + api_init_url, payment_data.to_json, { content_type: :json, accept: :json }
       self.response = JSON.parse(response)
     end
 
