@@ -19,9 +19,11 @@ module CsobPaymentGateway
     configuration.gateway_url = yaml["gateway_url"]
     configuration.return_url = yaml["return_url"]
     configuration.public_key = yaml["public_key"]
+    configuration.private_key = yaml["private_key"]
     configuration.currency = yaml["currency"]
     configuration.return_method_post = yaml["return_method_post"]
     configuration.close_payment = yaml["close_payment"]
+    configuration.keys_directory = yaml["keys_directory"]
 
     configuration
   end
@@ -42,7 +44,7 @@ module CsobPaymentGateway
    end
 
    class Configuration
-    attr_accessor :environment, :merchant_id, :return_url, :gateway_url, :public_key, :private_key, :currency, :return_method_post, :close_payment
+    attr_accessor :environment, :merchant_id, :return_url, :gateway_url, :public_key, :private_key, :currency, :return_method_post, :close_payment, :keys_directory
     attr_reader :statuses, :urls
 
     def initialize

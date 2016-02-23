@@ -2,17 +2,19 @@ base:
   test:
     gateway_url: "https://iapi.iplatebnibrana.csob.cz/api/v1.5"
     public_key: "mips_iplatebnibrana.csob.cz.pub"
-    merchant_id: "A1561i9yjm"
+    merchant_id: "MERCHANTID"
     currency: "USD"
     return_method_post: true
     close_payment: false
+    keys_directory: "private"
   production:
-    gateway_url: "https://iapi.iplatebnibrana.csob.cz/api/v1.5"
+    gateway_url: "https://api.platebnibrana.csob.cz/api/v1.5"
     public_key: "mips_iplatebnibrana.csob.cz.pub"
-    merchant_id: "A1561i9yjm"
+    merchant_id: "MERCHANTID"
     currency: "USD"
     return_method_post: true
     close_payment: false
+    keys_directory: "private"
 urls:
   init: "/payment/init/"
   process: "/payment/process/"
