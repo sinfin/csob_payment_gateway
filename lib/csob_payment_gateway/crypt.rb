@@ -28,7 +28,7 @@ module CsobPaymentGateway
     end
 
     def private_key_url
-      CsobPaymentGateway.configuration.keys_directory.to_s + CsobPaymentGateway.configuration.private_key.to_s
+      ::Rails.root.join(CsobPaymentGateway.configuration.keys_directory.to_s, CsobPaymentGateway.configuration.private_key.to_s)
     end
 
     def sign(data, method)
