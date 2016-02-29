@@ -22,7 +22,7 @@ module CsobPaymentGateway
 
     attr_reader :merchant_id, :public_key, :gateway_url, :cart_items, :currency, :order_id, :total_price, :customer_id, :timestamp, :default_currency, :close_payment, :return_url, :description, :keys_directory, :logger
 
-    attr_accessor :response
+    attr_accessor :response, :pay_id
 
     def payment_init
       api_init_url = CsobPaymentGateway.configuration.urls["init"]
@@ -67,7 +67,7 @@ module CsobPaymentGateway
     def get_data
       text =  [
                 merchant_id,
-                response["payId"],
+                pay_id,
                 timestamp
               ].map { |param| param.is_a?(Hash) ? "" : param.to_s }.join("|")
 
@@ -78,13 +78,13 @@ module CsobPaymentGateway
     def put_data
       data =  {
                 "merchantId": merchant_id,
-                "payId": response["payId"],
+                "payId": pay_id,
                 "dttm": timestamp
               }
 
       text =  [
                 merchant_id,
-                response["payId"],
+                pay_id,
                 timestamp
               ].map { |param| param.is_a?(Hash) ? "" : param.to_s }.join("|")
 
