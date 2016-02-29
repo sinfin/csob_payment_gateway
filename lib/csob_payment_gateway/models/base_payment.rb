@@ -72,7 +72,7 @@ module CsobPaymentGateway
               ].map { |param| param.is_a?(Hash) ? "" : param.to_s }.join("|")
 
       signature = CsobPaymentGateway::Crypt.sign(text, "GET")
-      "#{merchant_id}/#{response["payId"]}/#{timestamp}/#{CGI.escape(signature)}"
+      "#{merchant_id}/#{pay_id}/#{timestamp}/#{CGI.escape(signature)}"
     end
 
     def put_data
