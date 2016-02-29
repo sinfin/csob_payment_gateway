@@ -64,6 +64,23 @@ module CsobPaymentGateway
       JSON.parse(refund_response)
     end
 
+    def verify_response
+      text =  [
+                response["payId"],
+                response["dttm"],
+                response["resultCode"],
+                response["resultMessage"]
+              ].map { |param| param.is_a?(Hash) ? "" : param.to_s }.join("|")
+
+      text = text + "|" + response["paymentStatus"].to_s if !response["paymentStatus"].nil?
+
+      text = text + "|" + response["authCode"].to_s if response["authCode"] and !response["authCode"].nil?
+
+      text = text + "|" + response["merchantData"].to_s if response["merchantData"] and !response["merchantData"].nil?
+
+      CsobPaymentGateway::Crypt.verify(text, response["signature"])
+    end
+
     def get_data
       text =  [
                 merchant_id,
