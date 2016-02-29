@@ -40,28 +40,28 @@ module CsobPaymentGateway
       api_status_url = CsobPaymentGateway.configuration.urls["status"]
 
       response = RestClient.get gateway_url + api_status_url + get_data
-      JSON.parse(response)
+      self.response = JSON.parse(response)
     end
 
     def payment_close
       api_close_url = CsobPaymentGateway.configuration.urls["close"]
 
       response = RestClient.put gateway_url + api_close_url, put_data.to_json, { content_type: :json, accept: :json }
-      JSON.parse(response)
+      self.response = JSON.parse(response)
     end
 
     def payment_reverse
       api_reverse_url = CsobPaymentGateway.configuration.urls["reverse"]
 
       response = RestClient.put gateway_url + api_reverse_url, put_data.to_json, { content_type: :json, accept: :json }
-      JSON.parse(response)
+      self.response = JSON.parse(response)
     end
 
     def payment_refund
       api_refund_url = CsobPaymentGateway.configuration.urls["refund"]
 
       response = RestClient.put gateway_url + api_refund_url, put_data.to_json, { content_type: :json, accept: :json }
-      JSON.parse(response)
+      self.response = JSON.parse(response)
     end
 
     def verify_response
