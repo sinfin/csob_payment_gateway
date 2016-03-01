@@ -1,0 +1,10 @@
+environment: :test
+gateway_url: "https://iapi.iplatebnibrana.csob.cz/api/v1.5"
+public_key: "mips_iplatebnibrana.csob.cz.pub"
+merchant_id: "M1MIPS0459"
+currency: "USD"
+return_method_post: true
+close_payment: "true"
+private_key: "rsa_M1MIPS0459.key"
+keys_directory: "private/keys"
+return_url: "http://localhost:3000/orders/process_order"

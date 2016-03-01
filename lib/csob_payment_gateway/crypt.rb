@@ -7,9 +7,29 @@ module CsobPaymentGateway
 
     def prepare_data_to_sign(data, method)
       if method == "POST"
-        cart_to_sign = "#{data[:cart][0][:name]}|#{data[:cart][0][:quantity]}|#{data[:cart][0][:amount]}|#{data[:cart][0][:description]}|#{data[:cart][1][:name]}|#{data[:cart][1][:quantity]}|#{data[:cart][1][:amount]}|#{data[:cart][1][:description]}"
+        cart_to_sign = [
+          data[:cart][0][:name],
+          data[:cart][0][:quantity],
+          data[:cart][0][:amount],
+          data[:cart][0][:description]
+        ].map { |param| param.is_a?(Hash) ? "" : param.to_s }.join("|")
 
-        data_to_sign =  "#{data[:merchantId]}|#{data[:orderNo]}|#{data[:dttm]}|#{data[:payOperation]}|#{data[:payMethod]}|#{data[:totalAmount]}|#{data[:currency]}|#{data[:closePayment]}|#{data[:returnUrl]}|#{data[:returnMethod]}|#{cart_to_sign}|#{data[:description]}"
+
+        data_to_sign = [
+            data[:merchantId],
+            data[:orderNo],
+            data[:dttm],
+            data[:payOperation],
+            data[:payMethod],
+            data[:totalAmount],
+            data[:currency],
+            data[:closePayment],
+            data[:returnUrl],
+            data[:returnMethod],
+            cart_to_sign,
+            data[:description]
+          ].map { |param| param.is_a?(Hash) ? "" : param.to_s }.join("|")
+
 
         merchant_data = data[:merchantData]
         data_to_sign = "#{data_to_sign}|#{merchant_data}" unless merchant_data.nil?
