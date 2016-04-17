@@ -81,7 +81,7 @@ module CsobPaymentGateway
       CsobPaymentGateway::Crypt.verify(text, response["signature"])
     end
 
-    def get_data(use_response: true)
+    def get_data(use_response = true)
       data_pay_id = (use_response ? response["payId"] : pay_id)
       text =  [
                 merchant_id,
