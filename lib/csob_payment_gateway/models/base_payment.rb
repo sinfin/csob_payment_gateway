@@ -20,7 +20,7 @@ module CsobPaymentGateway
       @timestamp = Time.now.strftime("%Y%m%d%H%M%S")
     end
 
-    attr_reader :merchant_id, :public_key, :gateway_url, :cart_items, :currency, :order_id, :total_price, :customer_id, :timestamp, :default_currency, :close_payment, :return_url, :description, :keys_directory, :logger
+    attr_reader :merchant_id, :public_key, :gateway_url, :cart_items, :currency, :order_id, :total_price, :customer_id, :timestamp, :default_currency, :close_payment, :return_url, :description, :keys_directory, :logger, :pay_id
 
     attr_accessor :response
 
@@ -39,7 +39,7 @@ module CsobPaymentGateway
     def payment_status
       api_status_url = CsobPaymentGateway.configuration.urls["status"]
 
-      response = RestClient.get gateway_url + api_status_url + get_data
+      response = RestClient.get gateway_url + api_status_url + get_data(false)
       self.response = JSON.parse(response)
     end
 
@@ -81,15 +81,16 @@ module CsobPaymentGateway
       CsobPaymentGateway::Crypt.verify(text, response["signature"])
     end
 
-    def get_data
+    def get_data(use_response: true)
+      data_pay_id = (use_response ? response["payId"] : pay_id)
       text =  [
                 merchant_id,
-                response["payId"],
+                data_pay_id,
                 timestamp
               ].map { |param| param.is_a?(Hash) ? "" : param.to_s }.join("|")
 
       signature = CsobPaymentGateway::Crypt.sign(text, "GET")
-      "#{merchant_id}/#{response["payId"]}/#{timestamp}/#{CGI.escape(signature)}"
+      "#{merchant_id}/#{data_pay_id}/#{timestamp}/#{CGI.escape(signature)}"
     end
 
     def put_data
