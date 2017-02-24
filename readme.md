@@ -1,4 +1,4 @@
-# Csob payment gateway
+# Csob payment gateway compatible with Padrino
 
 ## Installation
 

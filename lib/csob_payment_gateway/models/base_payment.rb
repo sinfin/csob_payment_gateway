@@ -27,8 +27,13 @@ module CsobPaymentGateway
     def payment_init
       api_init_url = CsobPaymentGateway.configuration.urls["init"]
 
-      response = RestClient.post gateway_url + api_init_url, payment_data.to_json, { content_type: :json, accept: :json }
-      self.response = JSON.parse(response)
+     begin
+       response = RestClient.post gateway_url + api_init_url, payment_data.to_json, { content_type: :json, accept: :json }
+       self.response = JSON.parse(response)
+     rescue RestClient::ExceptionWithResponse => e
+       puts e.inspect
+     end
+
     end
 
     def payment_process_url
@@ -127,7 +132,7 @@ module CsobPaymentGateway
                 "merchantData": nil
               }
       data.merge!("customerId": customer_id) if !customer_id.nil? and customer_id.to_s != "0"
-      data.merge!("language": "EN")
+      data.merge!("language": "CZ")
       data.merge("signature": CsobPaymentGateway::Crypt.sign(data, "POST"))
     end
 

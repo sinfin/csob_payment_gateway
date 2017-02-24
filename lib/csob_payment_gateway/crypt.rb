@@ -48,15 +48,18 @@ module CsobPaymentGateway
     end
 
     def private_key_url
-      ::Rails.root.join(CsobPaymentGateway.configuration.keys_directory.to_s, CsobPaymentGateway.configuration.private_key.to_s)
+      url = "#{::Padrino.root}/#{CsobPaymentGateway.configuration.keys_directory.to_s}/#{CsobPaymentGateway.configuration.private_key.to_s}"
+      return url
     end
 
     def public_key_url
-      ::Rails.root.join(CsobPaymentGateway.configuration.keys_directory.to_s, CsobPaymentGateway.configuration.public_key.to_s)
+      url = "#{::Padrino.root}/#{CsobPaymentGateway.configuration.keys_directory.to_s}/#{CsobPaymentGateway.configuration.public_key.to_s}"
+      return url
     end
 
     def sign(data, method)
       data_to_sign = prepare_data_to_sign(data, method)
+      puts data_to_sign
       key = OpenSSL::PKey::RSA.new(File.read(private_key_url))
 
       digest = OpenSSL::Digest::SHA1.new
